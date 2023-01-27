@@ -1,0 +1,9 @@
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.neo4j:neo4j'
+}
+
+test {
+    useJUnitPlatform()
+}
