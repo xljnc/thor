@@ -20,12 +20,12 @@ public class FirstTest {
         Path dbPath = Path.of(dir, "/thor-embedded/data");
         DatabaseManagementService dbManagementService = new DatabaseManagementServiceBuilder(dbPath).build();
         Neo4jUtil.registerShutdownHook(dbManagementService);
-        GraphDatabaseService dbService = dbManagementService.database("neo4j");
-        doSomething(dbService);
+        GraphDatabaseService graphDb = dbManagementService.database("neo4j");
+        doSomething(graphDb);
     }
 
-    public static void doSomething(GraphDatabaseService dbService) {
-        try (Transaction tx = dbService.beginTx()) {
+    public static void doSomething(GraphDatabaseService graphDb) {
+        try (Transaction tx = graphDb.beginTx()) {
             Node firstNode = tx.createNode();
             firstNode.setProperty("message", "Hello, ");
             Node secondNode = tx.createNode();

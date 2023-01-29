@@ -21,17 +21,17 @@ public class IndexTest {
         Path dbPath = Path.of(dir, "/thor-embedded/data");
         DatabaseManagementService dbManagementService = new DatabaseManagementServiceBuilder(dbPath).build();
         Neo4jUtil.registerShutdownHook(dbManagementService);
-        GraphDatabaseService dbService = dbManagementService.database("neo4j");
-        createIndex(dbService);
-        createNode(dbService);
-        findNodeById(dbService);
-        updateNodeProperty(dbService);
-        dropNode(dbService);
-        dropIndex(dbService);
+        GraphDatabaseService graphDb = dbManagementService.database("neo4j");
+        createIndex(graphDb);
+        createNode(graphDb);
+        findNodeById(graphDb);
+        updateNodeProperty(graphDb);
+        dropNode(graphDb);
+        dropIndex(graphDb);
     }
 
-    public static void createIndex(GraphDatabaseService dbService) {
-        try (Transaction tx = dbService.beginTx()) {
+    public static void createIndex(GraphDatabaseService graphDb) {
+        try (Transaction tx = graphDb.beginTx()) {
             Schema schema = tx.schema();
             schema.indexFor(Label.label("User"))
                     .on("username")
@@ -41,8 +41,8 @@ public class IndexTest {
         }
     }
 
-    public static void createNode(GraphDatabaseService dbService) {
-        try (Transaction tx = dbService.beginTx()) {
+    public static void createNode(GraphDatabaseService graphDb) {
+        try (Transaction tx = graphDb.beginTx()) {
             Label label = Label.label("User");
             // Create some users
             for (int id = 0; id < 100; id++) {
@@ -54,19 +54,19 @@ public class IndexTest {
         }
     }
 
-    public static void findNodeById(GraphDatabaseService dbService) {
+    public static void findNodeById(GraphDatabaseService graphDb) {
         Label label = Label.label("User");
         int idToFind = 45;
         String nameToFind = "user" + idToFind + "@neo4j.org";
-        try (Transaction tx = dbService.beginTx()) {
+        try (Transaction tx = graphDb.beginTx()) {
             for (Node node : tx.findNodes(label, "username", nameToFind).stream().toList()) {
                 System.out.println("The username of user " + idToFind + " is " + node.getProperty("username"));
             }
         }
     }
 
-    public static void updateNodeProperty(GraphDatabaseService dbService) {
-        try (Transaction tx = dbService.beginTx()) {
+    public static void updateNodeProperty(GraphDatabaseService graphDb) {
+        try (Transaction tx = graphDb.beginTx()) {
             Label label = Label.label("User");
             int idToFind = 45;
             String nameToFind = "user" + idToFind + "@neo4j.org";
@@ -77,8 +77,8 @@ public class IndexTest {
         }
     }
 
-    public static void dropNode(GraphDatabaseService dbService) {
-        try (Transaction tx = dbService.beginTx()) {
+    public static void dropNode(GraphDatabaseService graphDb) {
+        try (Transaction tx = graphDb.beginTx()) {
             Label label = Label.label("User");
             int idToFind = 46;
             String nameToFind = "user" + idToFind + "@neo4j.org";
@@ -90,8 +90,8 @@ public class IndexTest {
 
     }
 
-    public static void dropIndex(GraphDatabaseService dbService) {
-        try (Transaction tx = dbService.beginTx()) {
+    public static void dropIndex(GraphDatabaseService graphDb) {
+        try (Transaction tx = graphDb.beginTx()) {
             Schema schema = tx.schema();
             schema.getIndexByName("usernames").drop();
             tx.commit();
