@@ -7,5 +7,6 @@ import org.neo4j.graphdb.RelationshipType;
  * @date 2023/1/27 17:35
  */
 public enum RelTypes implements RelationshipType {
-    KNOWS
+    KNOWS,
+    ACTED_IN
 }
