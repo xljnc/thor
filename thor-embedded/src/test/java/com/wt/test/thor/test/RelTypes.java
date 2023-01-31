@@ -8,5 +8,7 @@ import org.neo4j.graphdb.RelationshipType;
  */
 public enum RelTypes implements RelationshipType {
     KNOWS,
-    ACTED_IN
+    ACTED_IN,
+    NEO_NODE,
+    CODED_BY
 }
