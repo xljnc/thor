@@ -1,0 +1,13 @@
+dependencies {
+    implementation 'org.neo4j.driver:neo4j-java-driver'
+    compileOnly 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+description = 'neo4j-starter'
