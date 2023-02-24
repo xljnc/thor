@@ -29,6 +29,7 @@ allprojects {
         dependencies {
             dependency group: 'org.projectlombok', name: 'lombok', version: '1.18.26'
             dependency group: 'org.neo4j', name: 'neo4j', version: '5.4.0'
+            dependency group: 'jakarta.validation', name: 'jakarta.validation-api', version: '3.0.2'
         }
         imports {
             mavenBom "org.springframework.boot:spring-boot-dependencies:${rootProject.ext.springbootVersion}"

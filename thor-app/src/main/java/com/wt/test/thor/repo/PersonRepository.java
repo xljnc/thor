@@ -1,6 +1,6 @@
 package com.wt.test.thor.repo;
 
-import com.wt.test.thor.bo.PersonEntity;
+import com.wt.test.thor.entity.PersonEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

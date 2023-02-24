@@ -1,4 +1,6 @@
 dependencies {
+    implementation 'jakarta.validation:jakarta.validation-api'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-neo4j'
     compileOnly 'org.projectlombok:lombok'
     testCompileOnly 'org.projectlombok:lombok'

@@ -1,6 +1,6 @@
 package com.wt.test.thor.repo;
 
-import com.wt.test.thor.bo.MovieEntity;
+import com.wt.test.thor.entity.MovieEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

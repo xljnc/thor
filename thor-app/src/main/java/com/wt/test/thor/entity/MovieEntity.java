@@ -1,10 +1,7 @@
-package com.wt.test.thor.bo;
+package com.wt.test.thor.entity;
 
 import lombok.Data;
-import org.springframework.data.neo4j.core.schema.Id;
-import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.schema.Property;
-import org.springframework.data.neo4j.core.schema.Relationship;
+import org.springframework.data.neo4j.core.schema.*;
 import org.springframework.data.neo4j.core.schema.Relationship.Direction;
 
 import java.util.List;
@@ -18,7 +15,7 @@ import java.util.List;
 public class MovieEntity {
 
     @Id
-//    @GeneratedValue
+    @GeneratedValue
     private Long id;
 
     private String title;
