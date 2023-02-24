@@ -1,5 +1,6 @@
 package com.wt.test.thor.controller;
 
+import com.wt.test.thor.dto.RelationCreateDTO;
 import com.wt.test.thor.entity.MovieEntity;
 import com.wt.test.thor.entity.PersonEntity;
 import com.wt.test.thor.service.ThorService;
@@ -29,7 +30,12 @@ public class ThorController {
     }
 
     @GetMapping("/movie/get_by_title")
-    public MovieEntity createPerson(@RequestParam("title")String title) {
+    public MovieEntity createPerson(@RequestParam("title") String title) {
         return thorService.getMovieByTitle(title);
+    }
+
+    @PostMapping("/relation/create")
+    public void createMemberRelation(@RequestBody @Valid RelationCreateDTO createDTO) {
+        thorService.createMemberRelation(createDTO);
     }
 }
