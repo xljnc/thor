@@ -5,10 +5,7 @@ import com.wt.test.thor.entity.PersonEntity;
 import com.wt.test.thor.service.ThorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author qiyu
@@ -29,5 +26,10 @@ public class ThorController {
     @PostMapping("/person/create")
     public Long createPerson(@RequestBody @Valid PersonEntity personEntity) {
         return thorService.createPerson(personEntity);
+    }
+
+    @GetMapping("/movie/get_by_title")
+    public MovieEntity createPerson(@RequestParam("title")String title) {
+        return thorService.getMovieByTitle(title);
     }
 }

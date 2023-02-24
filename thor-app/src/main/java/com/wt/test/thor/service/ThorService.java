@@ -28,4 +28,8 @@ public class ThorService {
         personRepository.save(personEntity);
         return personEntity.getId();
     }
+
+    public MovieEntity getMovieByTitle(String title) {
+        return movieRepository.getByTitle(title);
+    }
 }
