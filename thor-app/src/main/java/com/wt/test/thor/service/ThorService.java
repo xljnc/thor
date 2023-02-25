@@ -4,6 +4,7 @@ import com.wt.test.thor.dto.RelationCreateDTO;
 import com.wt.test.thor.entity.MovieEntity;
 import com.wt.test.thor.entity.PersonEntity;
 import com.wt.test.thor.entity.Role;
+import com.wt.test.thor.repo.CommonRepository;
 import com.wt.test.thor.repo.MovieRepository;
 import com.wt.test.thor.repo.PersonRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author qiyu
@@ -25,6 +28,8 @@ public class ThorService {
     private final MovieRepository movieRepository;
 
     private final PersonRepository personRepository;
+
+    private final CommonRepository commonRepository;
 
     public Long createMovie(MovieEntity movieEntity) {
         movieRepository.save(movieEntity);
@@ -61,5 +66,16 @@ public class ThorService {
 
     public MovieEntity getActedMovie(String personName) {
         return movieRepository.getByActedPersonName(personName);
+    }
+
+    public List<PersonEntity> getActorByMovieTitle(String movieTitle) {
+        return commonRepository.getActorByMovieTitle(movieTitle);
+    }
+
+    public List<PersonEntity> getDirectorByMovieTitle(String movieTitle) {
+        String cql = "match (p:Person)-[r:DIRECTED]->(m:Movie {title: $movieTitle}) return p";
+        Map<String, Object> params = new HashMap<>(4);
+        params.put("movieTitle", movieTitle);
+        return commonRepository.findAllByCondition(cql, params, PersonEntity.class);
     }
 }

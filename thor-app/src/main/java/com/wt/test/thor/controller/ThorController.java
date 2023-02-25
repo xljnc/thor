@@ -45,4 +45,14 @@ public class ThorController {
     public MovieEntity getActedMovie(@RequestParam("personName") String personName) {
         return thorService.getActedMovie(personName);
     }
+
+    @GetMapping("/movie/get_actor")
+    public List<PersonEntity> getActorByMovieTitle(@RequestParam("movieTitle") String movieTitle) {
+        return thorService.getActorByMovieTitle(movieTitle);
+    }
+
+    @GetMapping("/movie/get director")
+    public List<PersonEntity> getDirectorByMovieTitle(@RequestParam("movieTitle") String movieTitle) {
+        return thorService.getDirectorByMovieTitle(movieTitle);
+    }
 }
