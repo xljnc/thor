@@ -30,12 +30,17 @@ public class ThorController {
     }
 
     @GetMapping("/movie/get_by_title")
-    public MovieEntity createPerson(@RequestParam("title") String title) {
+    public MovieEntity getMovieByTitle(@RequestParam("title") String title) {
         return thorService.getMovieByTitle(title);
     }
 
     @PostMapping("/relation/create")
     public void createMemberRelation(@RequestBody @Valid RelationCreateDTO createDTO) {
         thorService.createMemberRelation(createDTO);
+    }
+
+    @GetMapping("/person/get_acted_movie")
+    public MovieEntity getActedMovie(@RequestParam("personName") String personName) {
+        return thorService.getActedMovie(personName);
     }
 }

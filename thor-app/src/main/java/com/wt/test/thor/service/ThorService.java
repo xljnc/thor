@@ -3,14 +3,14 @@ package com.wt.test.thor.service;
 import com.wt.test.thor.dto.RelationCreateDTO;
 import com.wt.test.thor.entity.MovieEntity;
 import com.wt.test.thor.entity.PersonEntity;
+import com.wt.test.thor.entity.Role;
 import com.wt.test.thor.repo.MovieRepository;
 import com.wt.test.thor.repo.PersonRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author qiyu
@@ -45,7 +45,8 @@ public class ThorService {
         PersonEntity personEntity = personRepository.getByName(createDTO.getPersonName());
         switch (createDTO.getRelationType()) {
             case 1:
-                movieEntity.getActors().add(personEntity);
+                Role actRole = Role.builder().name("陈真").personEntity(personEntity).build();
+                movieEntity.getActors().add(actRole);
                 movieRepository.save(movieEntity);
                 break;
             case 2:
@@ -57,5 +58,8 @@ public class ThorService {
         }
     }
 
+    public MovieEntity getActedMovie(String personName) {
+        return movieRepository.getByActedPersonName(personName);
+    }
 
 }

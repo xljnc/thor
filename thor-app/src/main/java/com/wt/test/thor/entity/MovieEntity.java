@@ -24,7 +24,7 @@ public class MovieEntity {
     private String description;
 
     @Relationship(type = "ACTED_IN", direction = Direction.INCOMING)
-    private List<PersonEntity> actors;
+    private List<Role> actors;
 
     @Relationship(type = "DIRECTED", direction = Direction.INCOMING)
     private List<PersonEntity> directors;
