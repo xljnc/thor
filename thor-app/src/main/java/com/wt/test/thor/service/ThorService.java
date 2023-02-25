@@ -10,7 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @author qiyu
@@ -61,5 +62,4 @@ public class ThorService {
     public MovieEntity getActedMovie(String personName) {
         return movieRepository.getByActedPersonName(personName);
     }
-
 }

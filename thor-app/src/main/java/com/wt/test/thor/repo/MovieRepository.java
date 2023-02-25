@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
 public interface MovieRepository extends CrudRepository<MovieEntity, Long> {
 
     MovieEntity getByTitle(String title);
-
-
+    
     @Query("match (p:Person {name: $personName})-[r:ACTED_IN]->(m:Movie) return m")
     MovieEntity getByActedPersonName(@Param("personName") String personName);
+
 }
