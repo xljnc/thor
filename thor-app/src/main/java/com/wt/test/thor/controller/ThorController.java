@@ -44,7 +44,7 @@ public class ThorController {
     }
     
     @GetMapping("/person/get_acted_movie")
-    public MovieEntity getActedMovie(@RequestParam("personName") String personName) {
+    public List<MovieEntity> getActedMovie(@RequestParam("personName") String personName) {
         return thorService.getActedMovie(personName);
     }
     
@@ -61,5 +61,10 @@ public class ThorController {
     @PostMapping("/movie/page_actor")
     public Page<PersonEntity> getActorByMovieTitle(@RequestBody @Valid MovieQueryDTO queryDTO) {
         return thorService.pageActorByMovieTitle(queryDTO);
+    }
+    
+    @GetMapping("/person/get_co_actor")
+    public List<PersonEntity> getCoActors(@RequestParam("personName") String personName) {
+        return thorService.findCoActor(personName);
     }
 }

@@ -67,7 +67,7 @@ public class ThorService {
         }
     }
     
-    public MovieEntity getActedMovie(String personName) {
+    public List<MovieEntity> getActedMovie(String personName) {
         return movieRepository.getByActedPersonName(personName);
     }
     
@@ -88,5 +88,12 @@ public class ThorService {
         params.put("movieTitle", queryDTO.getMovieTitle());
         PageRequest pageRequest = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
         return commonRepository.pageByCondition(cql, params, pageRequest, PersonEntity.class);
+    }
+    
+    public List<PersonEntity> findCoActor(String personName) {
+        String cql = "match (p:Person {name: $personName})-[r:ACTED_IN]->(m:Movie) <-[:ACTED_IN]-(coActor:Person) return coActor";
+        Map<String, Object> params = new HashMap<>(4);
+        params.put("personName", personName);
+        return commonRepository.findAllByCondition(cql, params, PersonEntity.class);
     }
 }
