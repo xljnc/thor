@@ -11,7 +11,7 @@ import org.springframework.data.neo4j.core.schema.TargetNode;
 
 /**
  * @author qiyu
- * @date 2023/2/25
+ * @since 2023/2/25
  */
 @RelationshipProperties
 @Data

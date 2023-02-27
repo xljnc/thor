@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author qiyu
- * @date 2023/2/25
+ * @since 2023/2/25
  */
 @Repository
 @RequiredArgsConstructor
@@ -57,4 +57,5 @@ public class CommonRepository {
         List<T> data = neo4jTemplate.findAll(cql + pageQL, params, domainType);
         return new PageImpl<>(data, pageRequest, count);
     }
+ 
 }

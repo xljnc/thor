@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author qiyu
- * @date 2023/2/21
+ * @since 2023/2/21
  */
 @SpringBootApplication
 public class ThorApplication {

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author qiyu
- * @date 2023/2/21
+ * @since 2023/2/21
  */
 @Node("Movie")
 @Data

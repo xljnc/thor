@@ -15,7 +15,7 @@ import org.springframework.data.neo4j.core.schema.Node;
  *     private List<MovieEntity> directedMovies;
  *
  * @author qiyu
- * @date 2023/2/22
+ * @since 2023/2/22
  */
 @Node("Person")
 @Data

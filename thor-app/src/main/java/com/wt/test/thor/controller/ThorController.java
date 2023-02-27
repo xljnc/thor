@@ -1,6 +1,7 @@
 package com.wt.test.thor.controller;
 
 import com.wt.test.thor.dto.MovieQueryDTO;
+import com.wt.test.thor.dto.MovieRelationDTO;
 import com.wt.test.thor.dto.RelationCreateDTO;
 import com.wt.test.thor.entity.MovieEntity;
 import com.wt.test.thor.entity.PersonEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 
 /**
  * @author qiyu
- * @date 2023/2/24
+ * @since 2023/2/24
  */
 @RestController
 @RequestMapping("/thor")
@@ -66,5 +67,10 @@ public class ThorController {
     @GetMapping("/person/get_co_actor")
     public List<PersonEntity> getCoActors(@RequestParam("personName") String personName) {
         return thorService.findCoActor(personName);
+    }
+    
+    @GetMapping("/movie/get_relation")
+    public List<MovieRelationDTO> getAllMovieRelation(@RequestParam("movieTitle") String movieTitle, @RequestParam("relationType") Integer relationType) {
+        return thorService.getAllMovieRelation(movieTitle, relationType);
     }
 }

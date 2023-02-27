@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author qiyu
- * @date 2023/2/23
+ * @since 2023/2/23
  */
 @Repository
 public interface MovieRepository extends CrudRepository<MovieEntity, Long> {

@@ -1,6 +1,7 @@
 package com.wt.test.thor.service;
 
 import com.wt.test.thor.dto.MovieQueryDTO;
+import com.wt.test.thor.dto.MovieRelationDTO;
 import com.wt.test.thor.dto.RelationCreateDTO;
 import com.wt.test.thor.entity.MovieEntity;
 import com.wt.test.thor.entity.PersonEntity;
@@ -8,6 +9,7 @@ import com.wt.test.thor.entity.Role;
 import com.wt.test.thor.repo.CommonRepository;
 import com.wt.test.thor.repo.MovieRepository;
 import com.wt.test.thor.repo.PersonRepository;
+import com.wt.test.thor.repo.RelationRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,7 +23,7 @@ import java.util.Map;
 
 /**
  * @author qiyu
- * @date 2023/2/24
+ * @since 2023/2/24
  */
 @Service
 @RequiredArgsConstructor
@@ -33,6 +35,8 @@ public class ThorService {
     private final PersonRepository personRepository;
     
     private final CommonRepository commonRepository;
+    
+    private final RelationRepository relationRepository;
     
     public Long createMovie(MovieEntity movieEntity) {
         movieRepository.save(movieEntity);
@@ -54,7 +58,7 @@ public class ThorService {
         PersonEntity personEntity = personRepository.getByName(createDTO.getPersonName());
         switch (createDTO.getRelationType()) {
             case 1:
-                Role actRole = Role.builder().name("陈真").personEntity(personEntity).build();
+                Role actRole = Role.builder().name(createDTO.getRelationName()).personEntity(personEntity).build();
                 movieEntity.getActors().add(actRole);
                 movieRepository.save(movieEntity);
                 break;
@@ -95,5 +99,9 @@ public class ThorService {
         Map<String, Object> params = new HashMap<>(4);
         params.put("personName", personName);
         return commonRepository.findAllByCondition(cql, params, PersonEntity.class);
+    }
+    
+    public List<MovieRelationDTO> getAllMovieRelation(String movieTitle, Integer relationType) {
+        return relationRepository.getRelationByMovieTitle(movieTitle, relationType);
     }
 }

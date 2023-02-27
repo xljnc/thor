@@ -9,20 +9,23 @@ import java.io.Serializable;
 
 /**
  * @author qiyu
- * @date 2023/2/24
+ * @since 2023/2/24
  */
 @Data
 public class RelationCreateDTO implements Serializable {
-
+    
     @Serial
     private static final long serialVersionUID = 916714382889328394L;
-
+    
     @NotBlank
     private String personName;
-
+    
     @NotBlank
     private String movieTitle;
-
+    
     @NotNull
     private Integer relationType;
+    
+    @NotBlank
+    private String relationName;
 }
