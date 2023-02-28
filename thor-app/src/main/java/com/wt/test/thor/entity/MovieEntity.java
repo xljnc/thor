@@ -1,5 +1,6 @@
 package com.wt.test.thor.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.data.neo4j.core.schema.*;
 import org.springframework.data.neo4j.core.schema.Relationship.Direction;
@@ -21,6 +22,7 @@ public class MovieEntity {
     private String title;
 
     @Property("tagline")
+    @JsonProperty("tagline")
     private String description;
 
     @Relationship(type = "ACTED_IN", direction = Direction.INCOMING)
