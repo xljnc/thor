@@ -1,0 +1,65 @@
+#####Cypher
+
+##创建电影《精武英雄》
+create (m:Movie {title:'精武英雄',tagline:'近代武打片教科书'})
+create (m:Movie {title:'太极张三丰',tagline:'我命由我不由天'})
+
+
+##更新电影《精武英雄》
+match(m:Movie {title:'精武英雄'})
+set m.released = 1994
+
+##查询电影《精武英雄》
+match(m:Movie {title:'精武英雄'}) return m
+
+##创建演员
+create (p:Person {name:'李连杰',birthday:'1990-01-02'})
+create (p:Person {name:'周比利',birthday:'1991-01-02'})
+create (p:Person {name:'仓田保昭',birthday:'1992-01-02'})
+create (p {name:'中山忍',birthday:'1993-01-02'})
+create (p:Person {name:'钱小豪',birthday:'1994-01-02'})
+
+
+##更新演员标签
+match (p {name:'中山忍'})
+set p:Person
+
+##创建导演
+create (p:Person {name:'陈嘉上',birthday:'1989-01-02'})
+
+##创建演员和电影的参演关系
+match (p:Person {name:'李连杰'}),(m:Movie {title:'精武英雄'})
+create (p)-[r:ACTED_IN {role:'陈真'}]->(m)
+match (p:Person {name:'周比利'}),(m:Movie {title:'精武英雄'})
+create (p)-[r:ACTED_IN {role:'藤田刚'}]->(m)
+match (p:Person {name:'钱小豪'}),(m:Movie {title:'精武英雄'})
+create (p)-[r:ACTED_IN {role:'霍廷恩'}]->(m)
+match (p:Person {name:'李连杰'}),(m:Movie {title:'太极张三丰'})
+create (p)-[r:ACTED_IN {role:'君宝'}]->(m)
+match (p:Person {name:'钱小豪'}),(m:Movie {title:'太极张三丰'})
+create (p)-[r:ACTED_IN {role:'天宝'}]->(m)
+
+##创建导演和电影的关系
+match (p:Person {name:'陈嘉上'}),(m:Movie {title:'精武英雄'})
+create (p)-[r:DIRECTED]->(m)
+
+##查询参演电影的演员
+match (p:Person)-[r:ACTED_IN]->(m:Movie {title:'精武英雄'})
+return p,r,m
+skip 1 limit 1
+
+
+##查询2个演员共同参演的电影
+match (p1:Person {name:'李连杰'})-[r1:ACTED_IN]->(m:Movie)<-[r2:ACTED_IN]-(p2:Person {name:'钱小豪'})
+return p1,r1,m,r2,p2
+
+##查询演员合作过的演员
+match (p:Person {name: '李连杰'})-[r:ACTED_IN]->(m:Movie) <-[:ACTED_IN]-(coActor:Person)
+return m,coActor
+
+#####接口参数
+##创建演员
+{
+    "name": "仓田保昭",
+    "birthday": "1991-01-02"
+}
