@@ -18,6 +18,7 @@ create (p:Person {name:'周比利',birthday:'1991-01-02'})
 create (p:Person {name:'仓田保昭',birthday:'1992-01-02'})
 create (p {name:'中山忍',birthday:'1993-01-02'})
 create (p:Person {name:'钱小豪',birthday:'1994-01-02'})
+create (p:Person {name:'杨紫琼',birthday:'1995-01-02'})
 
 
 ##更新演员标签
@@ -38,6 +39,8 @@ match (p:Person {name:'李连杰'}),(m:Movie {title:'太极张三丰'})
 create (p)-[r:ACTED_IN {role:'君宝'}]->(m)
 match (p:Person {name:'钱小豪'}),(m:Movie {title:'太极张三丰'})
 create (p)-[r:ACTED_IN {role:'天宝'}]->(m)
+match (p:Person {name:'杨紫琼'}),(m:Movie {title:'太极张三丰'})
+create (p)-[r:ACTED_IN {role:'秋雪'}]->(m)
 
 ##创建导演和电影的关系
 match (p:Person {name:'陈嘉上'}),(m:Movie {title:'精武英雄'})
@@ -56,6 +59,10 @@ return p1,r1,m,r2,p2
 ##查询演员合作过的演员
 match (p:Person {name: '李连杰'})-[r:ACTED_IN]->(m:Movie) <-[:ACTED_IN]-(coActor:Person)
 return m,coActor
+
+##查杨紫琼和周比利的最短路径
+match p=shortestPath( (p1:Person {name:'周比利'})-[*]-(p2:Person {name:'杨紫琼'}) )
+return p
 
 #####接口参数
 ##创建演员
