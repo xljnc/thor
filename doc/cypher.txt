@@ -33,6 +33,8 @@ match (p:Person {name:'李连杰'}),(m:Movie {title:'精武英雄'})
 create (p)-[r:ACTED_IN {role:'陈真'}]->(m)
 match (p:Person {name:'周比利'}),(m:Movie {title:'精武英雄'})
 create (p)-[r:ACTED_IN {role:'藤田刚'}]->(m)
+match (p:Person {name:'仓田保昭'}),(m:Movie {title:'精武英雄'})
+create (p)-[r:ACTED_IN {role:'船越文夫'}]->(m)
 match (p:Person {name:'中山忍'}),(m:Movie {title:'精武英雄'})
 create (p)-[r:ACTED_IN {role:'山田光子'}]->(m)
 match (p:Person {name:'钱小豪'}),(m:Movie {title:'精武英雄'})
@@ -47,6 +49,9 @@ create (p)-[r:ACTED_IN {role:'秋雪'}]->(m)
 ##创建导演和电影的关系
 match (p:Person {name:'陈嘉上'}),(m:Movie {title:'精武英雄'})
 create (p)-[r:DIRECTED]->(m)
+#使用merge防止创建重复关系
+match (p:Person {name:'陈嘉上'}),(m:Movie {title:'精武英雄'})
+merge (p)-[r:DIRECTED]->(m)
 
 ##查询参演电影的演员
 match (p:Person)-[r:ACTED_IN]->(m:Movie {title:'精武英雄'})
