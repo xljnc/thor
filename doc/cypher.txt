@@ -33,6 +33,8 @@ match (p:Person {name:'李连杰'}),(m:Movie {title:'精武英雄'})
 create (p)-[r:ACTED_IN {role:'陈真'}]->(m)
 match (p:Person {name:'周比利'}),(m:Movie {title:'精武英雄'})
 create (p)-[r:ACTED_IN {role:'藤田刚'}]->(m)
+match (p:Person {name:'中山忍'}),(m:Movie {title:'精武英雄'})
+create (p)-[r:ACTED_IN {role:'山田光子'}]->(m)
 match (p:Person {name:'钱小豪'}),(m:Movie {title:'精武英雄'})
 create (p)-[r:ACTED_IN {role:'霍廷恩'}]->(m)
 match (p:Person {name:'李连杰'}),(m:Movie {title:'太极张三丰'})
@@ -63,6 +65,23 @@ return m,coActor
 ##查杨紫琼和周比利的最短路径
 match p=shortestPath( (p1:Person {name:'周比利'})-[*]-(p2:Person {name:'杨紫琼'}) )
 return p
+
+##创建演员和演员的关注关系
+match (p1:Person {name:'李连杰'}),(p2:Person {name:'中山忍'})
+create (p1)-[r:FOLLOW]->(p2)
+match (p1:Person {name:'中山忍'}),(p2:Person {name:'李连杰'})
+create (p1)-[r:FOLLOW]->(p2)
+match (p1:Person {name:'周比利'}),(p2:Person {name:'中山忍'})
+create (p1)-[r:FOLLOW]->(p2)
+
+##查询2个演员是否互相关注
+match (p1:Person {name:'李连杰'})-[r:FOLLOW]-(p2:Person {name:'中山忍'})
+return p1,r,p2
+
+##查询2个演员的共同关注
+match (p1:Person {name:'李连杰'})-[:FOLLOW]->(p:Person)<-[:FOLLOW]-(p2:Person {name:'周比利'})
+return p
+
 
 #####接口参数
 ##创建演员
