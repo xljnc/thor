@@ -1,10 +1,7 @@
 package com.wt.test.thor.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serial;
 
@@ -16,6 +13,7 @@ import java.io.Serial;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(callSuper = false)
 public class MovieQueryDTO extends PageQueryDTO {
     
     @Serial

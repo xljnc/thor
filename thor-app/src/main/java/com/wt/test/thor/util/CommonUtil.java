@@ -7,6 +7,9 @@ import org.neo4j.driver.types.Node;
 import org.neo4j.driver.types.Relationship;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author qiyu
  * @since 2023/3/1
@@ -30,5 +33,17 @@ public class CommonUtil {
         entity.setStartNode(relationship.startNodeId());
         entity.setEndNode(relationship.endNodeId());
         return entity;
+    }
+    
+    public BaseRelation toBaseRelation(Relationship relationship) {
+        return BaseRelation.builder().id(relationship.id()).type(relationship.type())
+                .startNode(relationship.startNodeId()).endNode(relationship.endNodeId())
+                .properties(relationship.asMap()).build();
+    }
+    
+    public BaseNode toBaseNode(Node node) {
+        List<String> labelList = new ArrayList<>();
+        node.labels().forEach(label -> labelList.add(label));
+        return BaseNode.builder().properties(node.asMap()).labels(labelList).id(node.id()).build();
     }
 }

@@ -2,6 +2,7 @@ package com.wt.test.thor.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Property;
 import org.springframework.data.neo4j.core.schema.Relationship;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Node("Movie")
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class MovieEntity extends BaseNode{
 
     private String title;

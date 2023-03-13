@@ -1,19 +1,20 @@
 package com.wt.test.thor.repo;
 
+import com.wt.test.thor.entity.PathEntity;
 import com.wt.test.thor.entity.PersonEntity;
+import com.wt.test.thor.util.CommonUtil;
 import lombok.RequiredArgsConstructor;
+import org.neo4j.driver.types.Path;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.security.InvalidParameterException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author qiyu
@@ -24,6 +25,10 @@ import java.util.Map;
 public class CommonRepository {
     
     private final Neo4jTemplate neo4jTemplate;
+    
+    private final Neo4jClient neo4jClient;
+    
+    private final CommonUtil commonUtil;
     
     public List<PersonEntity> getActorByMovieTitle(@Param("movieTitle") String movieTitle) {
         String cql = "match (p:Person)-[r:ACTED_IN]->(m:Movie {title: $movieTitle}) return p";
@@ -57,5 +62,28 @@ public class CommonRepository {
         List<T> data = neo4jTemplate.findAll(cql + pageQL, params, domainType);
         return new PageImpl<>(data, pageRequest, count);
     }
- 
+    
+    public List<PathEntity> findShortestPath(Long subId, Long subedId) {
+        String cql = "match p=shortestPath((p1)-[*..6]-(p2)) where id(p1) = $subId and id(p2) = $subedId "
+                + "return p as path";
+        Map<String, Object> params = new HashMap<>(4);
+        params.put("subId", subId);
+        params.put("subedId", subedId);
+        return neo4jClient.query(cql).bindAll(params).fetchAs(List.class)
+                .mappedBy((typeSystem, record) -> {
+                            Path path = record.get("path").asPath();
+                            List<PathEntity> pathEntityList = new ArrayList<>();
+                            path.forEach(segment -> {
+                                        PathEntity pathEntity = PathEntity.builder()
+                                                .start(commonUtil.toBaseNode(segment.start()))
+                                                .relation(commonUtil.toBaseRelation(segment.relationship()))
+                                                .end(commonUtil.toBaseNode(segment.end()))
+                                                .build();
+                                        pathEntityList.add(pathEntity);
+                                    }
+                            );
+                            return pathEntityList;
+                        }
+                ).one().orElse(Collections.emptyList());
+    }
 }

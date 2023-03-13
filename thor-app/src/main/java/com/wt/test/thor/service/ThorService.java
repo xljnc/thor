@@ -2,6 +2,7 @@ package com.wt.test.thor.service;
 
 import com.wt.test.thor.dto.*;
 import com.wt.test.thor.entity.MovieEntity;
+import com.wt.test.thor.entity.PathEntity;
 import com.wt.test.thor.entity.PersonEntity;
 import com.wt.test.thor.entity.Role;
 import com.wt.test.thor.repo.CommonRepository;
@@ -118,5 +119,9 @@ public class ThorService {
         params.put("subId", queryDTO.getSubId());
         params.put("subedId", queryDTO.getSubedId());
         return commonRepository.findAllByCondition(cql, params, PersonEntity.class);
+    }
+    
+    public List<PathEntity> findShortestPath(Long subId, Long subedId) {
+        return commonRepository.findShortestPath(subId, subedId);
     }
 }

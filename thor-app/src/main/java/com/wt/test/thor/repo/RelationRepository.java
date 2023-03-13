@@ -34,7 +34,12 @@ public class RelationRepository {
         Map<String, Object> params = new HashMap<>(4);
         params.put("movieTitle", movieTitle);
         params.put("relationType", RelationTypeEnum.getByType(relationType).getName());
-        return neo4jClient.query(cql).bindAll(params).fetchAs(MovieRelationDTO.class).mappedBy((typeSystem, record) -> MovieRelationDTO.builder().person(commonUtil.nodeToEntity(record.get("person").asNode(), PersonEntity.class)).relation(commonUtil.relationToEntity(record.get("relation").asRelationship(), RelationEntity.class)).movie(commonUtil.nodeToEntity(record.get("movie").asNode(), MovieEntity.class)).build()).all().stream().toList();
+        return neo4jClient.query(cql).bindAll(params).fetchAs(MovieRelationDTO.class)
+                .mappedBy((typeSystem, record) ->
+                        MovieRelationDTO.builder().person(commonUtil.nodeToEntity(record.get("person").asNode(), PersonEntity.class))
+                                .relation(commonUtil.relationToEntity(record.get("relation").asRelationship(), RelationEntity.class))
+                                .movie(commonUtil.nodeToEntity(record.get("movie").asNode(), MovieEntity.class)).build())
+                .all().stream().toList();
     }
     
     public Long createRelation(RelationCreateDTO createDTO) {
@@ -52,6 +57,7 @@ public class RelationRepository {
         Map<String, Object> params = new HashMap<>(4);
         params.put("subId", queryDTO.getSubId());
         params.put("subedId", queryDTO.getSubedId());
-        return neo4jClient.query(cql).bindAll(params).fetchAs(Long.class).one().map(count -> Objects.equals(count, 2L)).orElse(false);
+        return neo4jClient.query(cql).bindAll(params).fetchAs(Long.class).one()
+                .map(count -> Objects.equals(count, 2L)).orElse(false);
     }
 }

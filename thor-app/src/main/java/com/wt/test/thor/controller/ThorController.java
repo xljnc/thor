@@ -2,6 +2,7 @@ package com.wt.test.thor.controller;
 
 import com.wt.test.thor.dto.*;
 import com.wt.test.thor.entity.MovieEntity;
+import com.wt.test.thor.entity.PathEntity;
 import com.wt.test.thor.entity.PersonEntity;
 import com.wt.test.thor.service.ThorService;
 import jakarta.validation.Valid;
@@ -68,7 +69,8 @@ public class ThorController {
     }
     
     @GetMapping("/movie/get_relation")
-    public List<MovieRelationDTO> getAllMovieRelation(@RequestParam("movieTitle") String movieTitle, @RequestParam("relationType") Integer relationType) {
+    public List<MovieRelationDTO> getAllMovieRelation(@RequestParam("movieTitle") String movieTitle,
+                                                      @RequestParam("relationType") Integer relationType) {
         return thorService.getAllMovieRelation(movieTitle, relationType);
     }
     
@@ -85,5 +87,10 @@ public class ThorController {
     @PostMapping("/person/mutual")
     public List<PersonEntity> findMutualPerson(@RequestBody @Valid RelationQueryDTO queryDTO) {
         return thorService.findMutualPerson(queryDTO);
+    }
+    
+    @GetMapping("/path/shortest")
+    public List<PathEntity> findShortestPath(@RequestParam("subId") Long subId, @RequestParam("subedId") Long subedId) {
+        return thorService.findShortestPath(subId, subedId);
     }
 }
