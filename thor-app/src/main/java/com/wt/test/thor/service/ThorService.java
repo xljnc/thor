@@ -1,9 +1,6 @@
 package com.wt.test.thor.service;
 
-import com.wt.test.thor.dto.MovieQueryDTO;
-import com.wt.test.thor.dto.MovieRelationCreateDTO;
-import com.wt.test.thor.dto.MovieRelationDTO;
-import com.wt.test.thor.dto.RelationCreateDTO;
+import com.wt.test.thor.dto.*;
 import com.wt.test.thor.entity.MovieEntity;
 import com.wt.test.thor.entity.PersonEntity;
 import com.wt.test.thor.entity.Role;
@@ -109,5 +106,9 @@ public class ThorService {
     @Transactional(rollbackFor = Exception.class)
     public Long createMemberRelation(RelationCreateDTO createDTO) {
         return relationRepository.createRelation(createDTO);
+    }
+    
+    public boolean hasBidirectionalRelation(RelationQueryDTO queryDTO) {
+        return relationRepository.hasBidirectionalRelation(queryDTO);
     }
 }

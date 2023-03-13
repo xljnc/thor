@@ -3,6 +3,7 @@ package com.wt.test.thor.repo;
 import com.wt.test.thor.constant.RelationTypeEnum;
 import com.wt.test.thor.dto.MovieRelationDTO;
 import com.wt.test.thor.dto.RelationCreateDTO;
+import com.wt.test.thor.dto.RelationQueryDTO;
 import com.wt.test.thor.entity.MovieEntity;
 import com.wt.test.thor.entity.PersonEntity;
 import com.wt.test.thor.entity.RelationEntity;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author qiyu
@@ -42,5 +44,14 @@ public class RelationRepository {
         params.put("subId", createDTO.getSubId());
         params.put("subedId", createDTO.getSubedId());
         return neo4jClient.query(cql).bindAll(params).fetchAs(Long.class).one().orElse(null);
+    }
+    
+    public boolean hasBidirectionalRelation(RelationQueryDTO queryDTO) {
+        String cql = "match (p1)-[r:%s]-(p2) where id(p1) = $subId and id(p2) = $subedId return count(distinct(r))";
+        cql = String.format(cql, queryDTO.getSubType());
+        Map<String, Object> params = new HashMap<>(4);
+        params.put("subId", queryDTO.getSubId());
+        params.put("subedId", queryDTO.getSubedId());
+        return neo4jClient.query(cql).bindAll(params).fetchAs(Long.class).one().map(count -> Objects.equals(count, 2L)).orElse(false);
     }
 }

@@ -1,9 +1,6 @@
 package com.wt.test.thor.controller;
 
-import com.wt.test.thor.dto.MovieQueryDTO;
-import com.wt.test.thor.dto.MovieRelationCreateDTO;
-import com.wt.test.thor.dto.MovieRelationDTO;
-import com.wt.test.thor.dto.RelationCreateDTO;
+import com.wt.test.thor.dto.*;
 import com.wt.test.thor.entity.MovieEntity;
 import com.wt.test.thor.entity.PersonEntity;
 import com.wt.test.thor.service.ThorService;
@@ -78,5 +75,10 @@ public class ThorController {
     @PostMapping("/relation/create")
     public Long createMemberRelation(@RequestBody @Valid RelationCreateDTO createDTO) {
         return thorService.createMemberRelation(createDTO);
+    }
+    
+    @PostMapping("/relation/bidirectional")
+    public boolean hasBidirectionalRelation(@RequestBody @Valid RelationQueryDTO queryDTO) {
+        return thorService.hasBidirectionalRelation(queryDTO);
     }
 }
