@@ -1,6 +1,7 @@
 package com.wt.test.thor.service;
 
 import com.wt.test.thor.dto.MovieQueryDTO;
+import com.wt.test.thor.dto.MovieRelationCreateDTO;
 import com.wt.test.thor.dto.MovieRelationDTO;
 import com.wt.test.thor.dto.RelationCreateDTO;
 import com.wt.test.thor.entity.MovieEntity;
@@ -53,7 +54,7 @@ public class ThorService {
     }
     
     @Transactional(rollbackFor = Exception.class)
-    public void createMemberRelation(RelationCreateDTO createDTO) {
+    public void createMovieRelation(MovieRelationCreateDTO createDTO) {
         MovieEntity movieEntity = movieRepository.getByTitle(createDTO.getMovieTitle());
         PersonEntity personEntity = personRepository.getByName(createDTO.getPersonName());
         switch (createDTO.getRelationType()) {
@@ -103,5 +104,10 @@ public class ThorService {
     
     public List<MovieRelationDTO> getAllMovieRelation(String movieTitle, Integer relationType) {
         return relationRepository.getRelationByMovieTitle(movieTitle, relationType);
+    }
+    
+    @Transactional(rollbackFor = Exception.class)
+    public Long createMemberRelation(RelationCreateDTO createDTO) {
+        return relationRepository.createRelation(createDTO);
     }
 }

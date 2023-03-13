@@ -1,6 +1,7 @@
 package com.wt.test.thor.controller;
 
 import com.wt.test.thor.dto.MovieQueryDTO;
+import com.wt.test.thor.dto.MovieRelationCreateDTO;
 import com.wt.test.thor.dto.MovieRelationDTO;
 import com.wt.test.thor.dto.RelationCreateDTO;
 import com.wt.test.thor.entity.MovieEntity;
@@ -39,9 +40,9 @@ public class ThorController {
         return thorService.getMovieByTitle(title);
     }
     
-    @PostMapping("/relation/create")
-    public void createMemberRelation(@RequestBody @Valid RelationCreateDTO createDTO) {
-        thorService.createMemberRelation(createDTO);
+    @PostMapping("/movie/relation/create")
+    public void createMemberRelation(@RequestBody @Valid MovieRelationCreateDTO createDTO) {
+        thorService.createMovieRelation(createDTO);
     }
     
     @GetMapping("/person/get_acted_movie")
@@ -72,5 +73,10 @@ public class ThorController {
     @GetMapping("/movie/get_relation")
     public List<MovieRelationDTO> getAllMovieRelation(@RequestParam("movieTitle") String movieTitle, @RequestParam("relationType") Integer relationType) {
         return thorService.getAllMovieRelation(movieTitle, relationType);
+    }
+    
+    @PostMapping("/relation/create")
+    public Long createMemberRelation(@RequestBody @Valid RelationCreateDTO createDTO) {
+        return thorService.createMemberRelation(createDTO);
     }
 }

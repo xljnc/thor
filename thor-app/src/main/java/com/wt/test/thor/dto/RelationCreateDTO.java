@@ -17,15 +17,12 @@ public class RelationCreateDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 916714382889328394L;
     
-    @NotBlank
-    private String personName;
-    
-    @NotBlank
-    private String movieTitle;
+    @NotNull
+    private Long subId;
     
     @NotNull
-    private Integer relationType;
+    private Long subedId;
     
     @NotBlank
-    private String relationName;
+    private String subType;
 }

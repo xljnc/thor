@@ -15,6 +15,7 @@ public enum RelationTypeEnum {
     
     DIRECTED(2, "DIRECTED"),
     
+    FOLLOW(3, "FOLLOW"),
     ;
     
     RelationTypeEnum(Integer type, String name) {
