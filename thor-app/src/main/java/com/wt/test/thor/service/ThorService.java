@@ -55,17 +55,16 @@ public class ThorService {
         MovieEntity movieEntity = movieRepository.getByTitle(createDTO.getMovieTitle());
         PersonEntity personEntity = personRepository.getByName(createDTO.getPersonName());
         switch (createDTO.getRelationType()) {
-            case 1:
+            case 1 -> {
                 Role actRole = Role.builder().name(createDTO.getRelationName()).personEntity(personEntity).build();
                 movieEntity.getActors().add(actRole);
                 movieRepository.save(movieEntity);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 movieEntity.getDirectors().add(personEntity);
                 movieRepository.save(movieEntity);
-                break;
-            default:
-                log.error("关系类型异常,参数:{}", createDTO);
+            }
+            default -> log.error("关系类型异常,参数:{}", createDTO);
         }
     }
     
@@ -110,5 +109,14 @@ public class ThorService {
     
     public boolean hasBidirectionalRelation(RelationQueryDTO queryDTO) {
         return relationRepository.hasBidirectionalRelation(queryDTO);
+    }
+    
+    public List<PersonEntity> findMutualPerson(RelationQueryDTO queryDTO) {
+        String cql = "match (p1)-[:%s]->(p)<-[:%s]-(p2) " + " where id(p1) = $subId and id(p2) = $subedId " + " return p";
+        cql = String.format(cql, queryDTO.getSubType(), queryDTO.getSubType());
+        Map<String, Object> params = new HashMap<>(4);
+        params.put("subId", queryDTO.getSubId());
+        params.put("subedId", queryDTO.getSubedId());
+        return commonRepository.findAllByCondition(cql, params, PersonEntity.class);
     }
 }

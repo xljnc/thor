@@ -81,4 +81,9 @@ public class ThorController {
     public boolean hasBidirectionalRelation(@RequestBody @Valid RelationQueryDTO queryDTO) {
         return thorService.hasBidirectionalRelation(queryDTO);
     }
+    
+    @PostMapping("/person/mutual")
+    public List<PersonEntity> findMutualPerson(@RequestBody @Valid RelationQueryDTO queryDTO) {
+        return thorService.findMutualPerson(queryDTO);
+    }
 }
