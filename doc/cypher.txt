@@ -70,6 +70,8 @@ return m,coActor
 ##查杨紫琼和周比利的最短路径
 match p=shortestPath( (p1:Person {name:'周比利'})-[*]-(p2:Person {name:'杨紫琼'}) )
 return p
+match p=shortestPath( (p1:Person {name:'周比利'})-[*1..6]-(p2:Person {name:'杨紫琼'}) )
+return nodes(p),relationships(p)
 
 ##创建演员和演员的关注关系
 match (p1:Person {name:'李连杰'}),(p2:Person {name:'中山忍'})
@@ -86,6 +88,9 @@ return p1,r,p2
 ##查询2个演员的共同关注
 match (p1:Person {name:'李连杰'})-[:FOLLOW]->(p:Person)<-[:FOLLOW]-(p2:Person {name:'周比利'})
 return p
+
+##执行计划
+
 
 
 #####接口参数
