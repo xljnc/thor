@@ -35,6 +35,7 @@ public class FirstTest {
             System.out.print(firstNode.getProperty("message"));
             System.out.print(relationship.getProperty("message"));
             System.out.print(secondNode.getProperty("message"));
+            System.out.print("\n");
             //删节点前必须先删除关系，否则事务提交时会失败
             relationship.delete();
             firstNode.delete();
