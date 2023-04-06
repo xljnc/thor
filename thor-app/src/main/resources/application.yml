@@ -9,3 +9,10 @@ spring:
   data:
     neo4j:
       database: neo4j
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
