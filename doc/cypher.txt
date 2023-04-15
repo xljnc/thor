@@ -89,6 +89,18 @@ return p1,r,p2
 match (p1:Person {name:'李连杰'})-[:FOLLOW]->(p:Person)<-[:FOLLOW]-(p2:Person {name:'周比利'})
 return p
 
+##创建演员和演员的关注关系
+match (p1:Person {name:'李连杰'}),(p2:Person {name:'中山忍'})
+create (p1)-[r:FRIEND]->(p2)
+
+##创建演员和演员的关注关系
+match (p1:Person {name:'李连杰'})-[r:FRIEND]-(p2:Person {name:'中山忍'})
+return r
+
+##使用merge能避免重复创建相同的节点或者关系
+match (p:Person {name:'李连杰'}),(m:Movie {title:'精武英雄'})
+merge (p)-[r:ACTED_IN {role:'陈真'}]->(m)
+
 ##执行计划
 
 
