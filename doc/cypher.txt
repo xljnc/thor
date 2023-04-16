@@ -101,8 +101,31 @@ return r
 match (p:Person {name:'李连杰'}),(m:Movie {title:'精武英雄'})
 merge (p)-[r:ACTED_IN {role:'陈真'}]->(m)
 
-##执行计划
+##节点间多关系查询
+match (p:Person {name:'李连杰'})-[r:FOLLOW|FRIEND]-(p2:Person {name:'中山忍'})
+return r
 
+##数据导入
+LOAD CSV WITH HEADERS FROM "file:///northwind/products.csv" AS row
+CREATE (n:Product)
+SET n = row,
+n.unitPrice = toFloat(row.unitPrice),
+n.unitsInStock = toInteger(row.unitsInStock), n.unitsOnOrder = toInteger(row.unitsOnOrder),
+n.reorderLevel = toInteger(row.reorderLevel), n.discontinued = (row.discontinued <> "0")
+
+###执行计划
+##创建节点索引
+CREATE INDEX for (n:Person)
+on(n.name)
+
+##创建关系索引
+CREATE INDEX for FOR ()-[r:FOLLOW]-()
+on(r.name)
+
+##查询人物节点
+explain
+match (p:Person {name:'李连杰'})
+return p
 
 
 #####接口参数
