@@ -7,7 +7,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:3.0.2"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:3.0.6"
         classpath "com.wt.test:gradle-springboot-plugin:1.0.2-SNAPSHOT"
     }
 }
@@ -16,7 +16,7 @@ group 'com.wt.test'
 version '1.0.0-SNAPSHOT'
 
 ext {
-    springbootVersion = '3.0.2'
+    springbootVersion = '3.0.6'
     sourceCompatibility = 17
     jarArchiveClassifier = ''
     sourceJarArchiveClassifier = 'sources'
