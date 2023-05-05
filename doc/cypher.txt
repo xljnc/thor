@@ -134,4 +134,3 @@ return p
     "name": "仓田保昭",
     "birthday": "1991-01-02"
 }
-
