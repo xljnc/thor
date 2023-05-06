@@ -16,5 +16,12 @@ test {
 
 description = 'neo4j-app'
 
+bootJar {
+    enabled = true
+}
+
+jar {
+    enabled = false
+}
 
 
