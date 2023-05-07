@@ -16,12 +16,6 @@ test {
 
 description = 'neo4j-app'
 
-bootJar {
-    enabled = true
+enableBoot{
+    enableBootApp(project)
 }
-
-jar {
-    enabled = false
-}
-
-
