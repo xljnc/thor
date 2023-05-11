@@ -4,6 +4,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
     implementation 'org.neo4j:neo4j'
+    testImplementation 'org.hashids:hashids'
 }
 
 test {
