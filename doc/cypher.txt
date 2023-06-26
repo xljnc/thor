@@ -105,6 +105,10 @@ merge (p)-[r:ACTED_IN {role:'陈真'}]->(m)
 match (p:Person {name:'李连杰'})-[r:FOLLOW|FRIEND]-(p2:Person {name:'中山忍'})
 return r
 
+##模糊查询
+match(n:Person)-[r]-(m)where n.name=~ 'Tom.*' 
+return n,r,m
+
 ##数据导入
 LOAD CSV WITH HEADERS FROM "file:///northwind/products.csv" AS row
 CREATE (n:Product)
@@ -121,6 +125,13 @@ on(n.name)
 ##创建关系索引
 CREATE INDEX for FOR ()-[r:FOLLOW]-()
 on(r.name)
+
+##创建唯一约束
+CREATE CONSTRAINT FOR (n:Movie)
+ REQUIRE (n.title) IS UNIQUE
+
+CREATE CONSTRAINT FOR (n:Person)
+ REQUIRE (n.name) IS UNIQUE
 
 ##查询人物节点
 explain
